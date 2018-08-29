@@ -53,7 +53,9 @@ class Game extends React.Component {
         }
       ],
       stepNumber: 0,
-      xIsNext: true
+      xIsNext: true,
+      col: null,
+      row: null
     };
   }
 
@@ -66,6 +68,7 @@ class Game extends React.Component {
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
+
     this.setState({
       history: history.concat([
         {
@@ -73,7 +76,9 @@ class Game extends React.Component {
         }
       ]),
       stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
+      xIsNext: !this.state.xIsNext,
+      col: i,
+      row: i
     });
   }
 
@@ -88,22 +93,22 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
+    const row = this.state.row
+    const col = this.state.col
 
-    //TODO: get row and col working
-
-    var row = 1
-    var col = 2
+    //TODO: fix row and col updating on each click
 
     const moves = history.map((step, move) => {
-      const desc = move ?
+      const asc = move ?
         'Go to move #' + move + ' row:'+ row + ' col:' + col:
         'Go to game start';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button onClick={() => this.jumpTo(move)}>{asc}</button>
         </li>
       );
     });
+    moves.reverse();
 
     let status;
 
@@ -123,7 +128,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ul>{moves}</ul>
         </div>
       </div>
     );
