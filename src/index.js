@@ -50,6 +50,7 @@ class Game extends React.Component {
       history: [
         {
           squares: Array(9).fill(null),
+          // TODO add col and row to history
           col: null,
           row: null
         }
@@ -73,6 +74,7 @@ class Game extends React.Component {
       history: history.concat([
         {
           squares: squares,
+          // TODO fix col / row
           col: i,
           row: i
         }
@@ -93,8 +95,10 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-    const row = history.row
-    const col = history.col
+
+    //TODO rix row / col
+    const row = current.row
+    const col = current.col
 
 
     //TODO: fix row and col updating on each click
