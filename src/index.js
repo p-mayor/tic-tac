@@ -96,23 +96,27 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    //TODO rix row / col
-    const row = current.row
-    const col = current.col
+    //TODO fix row / col
+    //const row = current.row
+    //const col = current.col
 
 
     //TODO: fix row and col updating on each click
 
     const moves = history.map((step, move) => {
       const asc = move ?
-        'Go to move #' + move + ' row:' + row + ' col:' + col:
+        'Go to move #' + move + ' row:' + '' + ' col:' + '':
         'Go to game start';
+        console.log(move)
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{asc}</button>
         </li>
       );
     });
+    console.log(moves)
+
+    // reverse move list
     moves.reverse();
 
     let status;
