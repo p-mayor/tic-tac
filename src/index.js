@@ -50,7 +50,6 @@ class Game extends React.Component {
       history: [
         {
           squares: Array(9).fill(null),
-          // TODO add col and row to history
           col: null,
           row: null
         }
@@ -74,13 +73,13 @@ class Game extends React.Component {
       history: history.concat([
         {
           squares: squares,
-          // TODO fix col / row
-          col: i,
-          row: i
+          col: calculateCol(i),
+          row: calculateRow(i)
         }
       ]),
       stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
+      xIsNext: !this.state.xIsNext,
+
     });
   }
 
@@ -96,28 +95,16 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    //TODO fix row / col
-    //const row = current.row
-    //const col = current.col
-
-
-    //TODO: fix row and col updating on each click
-
     const moves = history.map((step, move) => {
       const asc = move ?
-        'Go to move #' + move + ' row:' + '' + ' col:' + '':
+        'Go to move #' + move + ' row:' + step.row + ' col:' + step.col:
         'Go to game start';
-        console.log(move)
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{asc}</button>
         </li>
       );
     });
-    console.log(moves)
-
-    // reverse move list
-    moves.reverse();
 
     let status;
 
@@ -148,6 +135,7 @@ class Game extends React.Component {
 
 ReactDOM.render(<Game />, document.getElementById("root"));
 
+
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -166,4 +154,36 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+function calculateRow(a) {
+  const row_1 = [0,1,2];
+  const row_2 = [3,4,5];
+  const row_3 = [6,7,8];
+  if (row_1.indexOf(a)>-1) {
+    return 1;
+  };
+
+  if (row_2.indexOf(a)>-1) {
+    return 2;
+  };
+  if (row_3.indexOf(a)>-1) {
+    return 3;
+  };
+  return 'x'
+}
+function calculateCol(a) {
+  const col_1 = [0,3,6];
+  const col_2 = [1,4,7];
+  const col_3 = [2,5,8];
+
+  if (col_1.indexOf(a)>-1) {
+    return 1;
+  } else if (col_2.indexOf(a)>-1) {
+    return 2;
+  } else if (col_3.indexOf(a)>-1) {
+    return 3;
+  }
+  return 'x'
+
 }
