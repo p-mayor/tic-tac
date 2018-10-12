@@ -135,7 +135,6 @@ class Game extends React.Component {
 
 ReactDOM.render(<Game />, document.getElementById("root"));
 
-
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -162,12 +161,9 @@ function calculateRow(a) {
   const row_3 = [6,7,8];
   if (row_1.indexOf(a)>-1) {
     return 1;
-  };
-
-  if (row_2.indexOf(a)>-1) {
+  } else if (row_2.indexOf(a)>-1) {
     return 2;
-  };
-  if (row_3.indexOf(a)>-1) {
+  } else if (row_3.indexOf(a)>-1) {
     return 3;
   };
   return 'x'
@@ -187,3 +183,17 @@ function calculateCol(a) {
   return 'x'
 
 }
+
+/* TODO:
+1. Display the location for each move in the format (col, row)
+in the move history list.
+2. Bold the currently selected item in the move list.
+3. Rewrite Board to use two loops to make the squares instead
+of hardcoding them.
+4. Add a toggle button that lets you sort the moves in either
+ascending or descending order.
+5. When someone wins, highlight the three squares that caused
+the win.
+6. When no one wins, display a message about the result being
+a draw.
+*/
